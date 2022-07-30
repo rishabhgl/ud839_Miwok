@@ -15,9 +15,11 @@
  */
 package com.example.android.miwok;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 // import android.support.v7.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,27 +32,45 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        TextView numbersText = findViewById(R.id.numbers);
+        TextView familyText = findViewById(R.id.family);
+        TextView colorsText= findViewById(R.id.colors);
+        TextView phrasesText = findViewById(R.id.phrases);
+
+        //OnClick Listeners to navigate through the activities
+
+        numbersText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        colorsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ColorsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        phrasesText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, PhrasesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        familyText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FamilyActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
-//    Methods to handle explicit intents:
-
-    public void openNumbersList(View view){
-        Intent intent = new Intent(this, NumbersActivity.class);
-        startActivity(intent);
-    }
-
-    public void openColorsList(View view){
-        Intent intent = new Intent(this, ColorsActivity.class);
-        startActivity(intent);
-    }
-
-    public void openPhrasesList(View view){
-        Intent intent = new Intent(this, PhrasesActivity.class);
-        startActivity(intent);
-    }
-
-    public void openFamilyList(View view){
-        Intent intent = new Intent(this, FamilyActivity.class);
-        startActivity(intent);
-    }
 }
