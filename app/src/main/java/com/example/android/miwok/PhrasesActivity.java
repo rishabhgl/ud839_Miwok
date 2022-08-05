@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -27,7 +28,7 @@ public class PhrasesActivity extends AppCompatActivity {
         phrases.add(new Word("Come here.","әnni'nem"));
 
 
-        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,phrases);
+        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,phrases, Color.parseColor("#16AFCA"));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
     }

@@ -30,4 +30,13 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
+    <style name="miwokTextStyle">
+        <item name="android:textColor"> #FFFFFF </item>
+        <item name="android:textStyle"> bold </item>
+        <item name="android:textAppearance"> ?android:textAppearanceMedium </item>
+    </style>
+    <style name="defaultTextStyle">
+        <item name="android:textColor"> #FFFFFF </item>
+        <item name="android:textAppearance"> ?android:textAppearanceMedium </item>
+    </style>
 </resources>

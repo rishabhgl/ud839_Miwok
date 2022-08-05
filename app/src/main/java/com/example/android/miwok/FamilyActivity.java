@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class FamilyActivity extends AppCompatActivity {
         familyMembers.add(new Word("grandmother","ama",R.drawable.family_grandmother));
         familyMembers.add(new Word("grandfather","paapa",R.drawable.family_grandfather));
 
-        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,familyMembers);
+        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,familyMembers, Color.parseColor("#379237"));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
 

@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -26,7 +27,7 @@ public class ColorsActivity extends AppCompatActivity {
         colors.add(new Word("dusty yellow","ṭopiisә",R.drawable.color_dusty_yellow));
         colors.add(new Word("mustard yellow","chiwiiṭә",R.drawable.color_mustard_yellow));
 
-        WordArrayAdapter colorsAdapter = new WordArrayAdapter(this,colors);
+        WordArrayAdapter colorsAdapter = new WordArrayAdapter(this,colors, Color.parseColor("#8800A0"));
         colorsList.setAdapter(colorsAdapter);
     }
 

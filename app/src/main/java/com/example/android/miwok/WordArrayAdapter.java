@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,14 @@ import java.util.ArrayList;
 
 public class WordArrayAdapter extends ArrayAdapter<Word> {
 
-    public WordArrayAdapter(Activity context, ArrayList<Word> Words){
+    private int viewBgColor;
+
+    public WordArrayAdapter(Activity context, ArrayList<Word> Words,int bgColor){
         super(context,0,Words);
+        viewBgColor = bgColor;
     }
+
+
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
@@ -38,10 +44,12 @@ public class WordArrayAdapter extends ArrayAdapter<Word> {
         ImageView listImage = listItemView.findViewById(R.id.listImage);
         if(word.getListImage() != 0){
             listImage.setImageResource(word.getListImage());
+            listImage.setBackgroundColor(Color.parseColor("#FFF7DA"));
         }
         else{
             listImage.setVisibility(View.GONE);
         }
+        listItemView.setBackgroundColor(viewBgColor);
 
         return listItemView;
     }

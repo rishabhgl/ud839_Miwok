@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -29,7 +30,7 @@ public class NumbersActivity extends AppCompatActivity {
         words.add(new Word("nine","wo'e",R.drawable.number_nine));
         words.add(new Word("ten","na'aacha",R.drawable.number_ten));
 
-        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,words);
+        WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,words, Color.parseColor("#FD8E09"));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
     }
