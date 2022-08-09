@@ -2,6 +2,7 @@ package com.example.android.miwok;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class WordArrayAdapter extends ArrayAdapter<Word> {
         TextView miwokTranslationtextView = listItemView.findViewById(R.id.view1);
         miwokTranslationtextView.setText(word.getMiwokTranslation());
 
+
         TextView defaultTranslationtextView = listItemView.findViewById(R.id.view2);
         defaultTranslationtextView.setText(word.getDefaultTranslation());
 
@@ -50,6 +52,13 @@ public class WordArrayAdapter extends ArrayAdapter<Word> {
             listImage.setVisibility(View.GONE);
         }
         listItemView.setBackgroundColor(viewBgColor);
+
+        listItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            MediaPlayer.create(getContext(),word.getListItemAudio()).start();
+            }
+        });
 
         return listItemView;
     }
