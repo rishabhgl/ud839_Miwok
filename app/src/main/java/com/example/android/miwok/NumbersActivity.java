@@ -3,7 +3,10 @@ package com.example.android.miwok;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,7 +21,7 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
 
-        ArrayList<Word> words = new ArrayList<Word>();
+        final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("one","lutti",R.drawable.number_one,R.raw.number_one));
         words.add(new Word("two","otiiko",R.drawable.number_two,R.raw.number_two));
         words.add(new Word("three","tolookosu",R.drawable.number_three,R.raw.number_three));
@@ -33,5 +36,11 @@ public class NumbersActivity extends AppCompatActivity {
         WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,words, Color.parseColor("#FD8E09"));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MediaPlayer.create(NumbersActivity.this,words.get(i).getListItemAudio()).start();
+            }
+        });
     }
 }

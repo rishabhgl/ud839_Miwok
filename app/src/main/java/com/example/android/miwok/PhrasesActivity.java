@@ -3,7 +3,10 @@ package com.example.android.miwok;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,7 +18,7 @@ public class PhrasesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
 
-        ArrayList<Word> phrases = new ArrayList<Word>();
+        final ArrayList<Word> phrases = new ArrayList<Word>();
         phrases.add(new Word("Where are you going?","minto wuksus",R.raw.phrase_where_are_you_going));
         phrases.add(new Word("What is your name?","tinnә oyaase'nә",R.raw.phrase_what_is_your_name));
         phrases.add(new Word("My name is..." ,"oyaaset...",R.raw.phrase_my_name_is));
@@ -31,5 +34,11 @@ public class PhrasesActivity extends AppCompatActivity {
         WordArrayAdapter itemsAdapter = new WordArrayAdapter(this,phrases, Color.parseColor("#16AFCA"));
         ListView listView = findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                MediaPlayer.create(PhrasesActivity.this,phrases.get(i).getListItemAudio()).start();
+            }
+        });
     }
 }

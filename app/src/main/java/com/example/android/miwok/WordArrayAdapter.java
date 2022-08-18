@@ -53,12 +53,6 @@ public class WordArrayAdapter extends ArrayAdapter<Word> {
         }
         listItemView.setBackgroundColor(viewBgColor);
 
-        listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            MediaPlayer.create(getContext(),word.getListItemAudio()).start();
-            }
-        });
 
         return listItemView;
     }
