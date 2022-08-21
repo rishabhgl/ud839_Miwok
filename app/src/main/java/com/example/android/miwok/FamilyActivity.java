@@ -2,12 +2,15 @@ package com.example.android.miwok;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -21,10 +24,43 @@ public class FamilyActivity extends AppCompatActivity {
         }
     };
 
+    private boolean mAudioFocusPlaybackDelayed;
+
+    private AudioManager miwokAudioManager;
+
+    private AudioManager.OnAudioFocusChangeListener miwokAudioFocusChangeListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_layout);
+
+        miwokAudioManager= (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+
+        miwokAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+            @Override
+            public void onAudioFocusChange(int audioFocusChange) {
+                switch (audioFocusChange){
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        mediaPlayer.pause();
+                        mediaPlayer.seekTo(0);
+                        break;
+                    case AudioManager.AUDIOFOCUS_GAIN:
+                        if (mAudioFocusPlaybackDelayed) {
+                            mAudioFocusPlaybackDelayed = false;}
+                        mediaPlayer.start();
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS:
+                        releaseMediaPlayer();
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                        mediaPlayer.pause();
+                        mediaPlayer.seekTo(0);
+                        break;
+
+                }
+            }
+        };
 
         final ArrayList<Word> familyMembers = new ArrayList<Word>();
         familyMembers.add(new Word("father","әpә",R.drawable.family_father,R.raw.family_father));
@@ -44,14 +80,14 @@ public class FamilyActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                 releaseMediaPlayer();
-                 mediaPlayer = MediaPlayer.create(FamilyActivity.this,familyMembers.get(i).getListItemAudio());
-                 mediaPlayer.start();
-                 mediaPlayer.setOnCompletionListener(completionListener);
+                releaseMediaPlayer();
+                mediaPlayer = MediaPlayer.create(FamilyActivity.this, familyMembers.get(i).getListItemAudio());
+                mediaPlayer.setOnCompletionListener(completionListener);
+                requestAudio();
             }
         });
-
     }
+
 
     public void releaseMediaPlayer()
     {
@@ -59,6 +95,34 @@ public class FamilyActivity extends AppCompatActivity {
         {
             mediaPlayer.release();
             mediaPlayer = null;
+            miwokAudioManager.abandonAudioFocus(miwokAudioFocusChangeListener);
         }
+    }
+
+    public void requestAudio()
+    {
+        int audioRequest = miwokAudioManager.requestAudioFocus(miwokAudioFocusChangeListener, AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        switch(audioRequest)
+        {
+            case AudioManager.AUDIOFOCUS_REQUEST_GRANTED:
+                mediaPlayer.start();
+
+                break;
+            case AudioManager.AUDIOFOCUS_REQUEST_FAILED:
+                releaseMediaPlayer();
+                Toast.makeText(this,"Audio Focus Request failed!!",Toast.LENGTH_SHORT).show();
+                break;
+            case AudioManager.AUDIOFOCUS_REQUEST_DELAYED:
+                Toast.makeText(this,"Audio will be played shortly!",Toast.LENGTH_SHORT).show();
+                mAudioFocusPlaybackDelayed = true;
+                mediaPlayer.start();
+                break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        releaseMediaPlayer();
     }
 }
