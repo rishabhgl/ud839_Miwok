@@ -24,6 +24,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -35,9 +38,28 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager2 categoryPager = findViewById(R.id.categoryPager);
 
-        CategoryPagerAdapter categorAdapter = new CategoryPagerAdapter(getSupportFragmentManager(),getLifecycle());
+        CategoryPagerAdapter categoryAdapter = new CategoryPagerAdapter(getSupportFragmentManager(),getLifecycle());
 
-        categoryPager.setAdapter(categorAdapter);
+        categoryPager.setAdapter(categoryAdapter);
+
+        TabLayout tabBar = findViewById(R.id.tabBar);
+
+        new TabLayoutMediator(tabBar,categoryPager, (tab,position) -> {
+            switch(position){
+            case 0:
+                tab.setText("Numbers");
+                break;
+            case 1:
+                tab.setText("Colors");
+                break;
+            case 2:
+                tab.setText("Family");
+                break;
+            case 3:
+                tab.setText("Phrases");
+                break;
+
+        }}).attach();
     }
 
 }
