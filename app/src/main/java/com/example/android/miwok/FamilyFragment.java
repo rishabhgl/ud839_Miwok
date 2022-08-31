@@ -28,7 +28,7 @@ public class FamilyFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static FamilyFragment newInstance(String param1, String param2) {
+    public static FamilyFragment newInstance() {
         FamilyFragment fragment = new FamilyFragment();
         Bundle args = new Bundle();
         return fragment;

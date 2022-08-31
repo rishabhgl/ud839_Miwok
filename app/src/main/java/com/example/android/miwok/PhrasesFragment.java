@@ -28,7 +28,7 @@ public class PhrasesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PhrasesFragment newInstance(String param1, String param2) {
+    public static PhrasesFragment newInstance() {
         PhrasesFragment fragment = new PhrasesFragment();
         Bundle args = new Bundle();
         return fragment;

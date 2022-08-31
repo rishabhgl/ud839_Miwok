@@ -27,7 +27,7 @@ public class ColorsFragment extends Fragment {
     public ColorsFragment() {
         // Required empty public constructor
     }
-    public static ColorsFragment newInstance(String param1, String param2) {
+    public static ColorsFragment newInstance() {
         ColorsFragment fragment = new ColorsFragment();
         Bundle args = new Bundle();
         return fragment;

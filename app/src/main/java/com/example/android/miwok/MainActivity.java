@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 // import android.support.v7.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,45 +33,11 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
-        TextView numbersText = findViewById(R.id.numbers);
-        TextView familyText = findViewById(R.id.family);
-        TextView colorsText= findViewById(R.id.colors);
-        TextView phrasesText = findViewById(R.id.phrases);
+        ViewPager2 categoryPager = findViewById(R.id.categoryPager);
 
-        //OnClick Listeners to navigate through the activities
+        CategoryPagerAdapter categorAdapter = new CategoryPagerAdapter(getSupportFragmentManager(),getLifecycle());
 
-        numbersText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        colorsText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ColorsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        phrasesText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PhrasesActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        familyText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        categoryPager.setAdapter(categorAdapter);
     }
 
 }
